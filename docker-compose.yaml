@@ -62,7 +62,8 @@ services:
     - user
     - shipping
     - payment
-    ports: "80:80"  
+    ports: 
+    - "80:80"  
 
 
 networks:
