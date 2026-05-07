@@ -1,53 +1,78 @@
 services:
   catalogue:
-    image: catalogue:v1
+    build:
+      context: ./catalogue
+      dockerfile: dockerfile
+    image: vikas/catalogue:v1
     container_name: catalogue
     depends_on: 
     - mongodb
 
   
   mongodb:
-    image: mongodb:v1
+    build: ./mongodb
+    image: vikas/mongodb:v1
     container_name: mongodb
-
+    volumes:
+    - mongodb/data/db
   redis:
     image: redis:7.0
     container_name: redis
+    volumes:
+    - redis/data
 
   rabbitmq:
     image: rabbitmq:3
     container_name: rabbitmq
+    volumes:
+    - rabbitmq: var/lib/rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: roboshop
       RABBITMQ_DEFAULT_PASS: roboshop123
 
+
   mysql:
-    image: mysql:v1
+    build: ./mysql
+    image: vikas/mysql:v1
     container_name: mysql
+  volumes:
+  - mysql: var/lib/mysql
 
   cart:
-    image: cart:v1
+    build:
+      context: ./cart
+      dockerfile: dockerfile
+    image: vikas/cart:v1
     container_name: cart
     depends_on: 
     - redis
     - catalogue
 
   user:
-    image: user:v1
+    build:
+      context: ./user
+      dockerfile: dockerfile
+    image: vikas/user:v1
     container_name: user
     depends_on: 
     - mongodb
     - redis
 
   shipping:
-    image: shipping:v1
+    build:
+      context: ./shipping
+      dockerfile: dockerfile
+    image: vikas/shipping:v1
     container_name: shipping
     depends_on: 
     - mysql
     - cart
 
   payment:
-    image: payment:v1
+    build:
+      context: ./payment
+      dockerfile: dockerfile
+    image: vikas/payment:v1
     container_name: payment
     depends_on:
     - rabbitmq
@@ -55,8 +80,13 @@ services:
     - user
 
   frontend:
-    image: frontend:v1
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    image: vikas/frontend:v1
     container_name: frontend
+    ports: 
+    - "80:80"  
     depends_on: 
     - catalogue
     - cart
@@ -72,4 +102,10 @@ networks:
     driver: bridge
     name: roboshop
     external: false # true if you have created network manually using docker network command
+
+volumes:
+  mongodb: # docker volume create mongodb. /var/lib/docker/volumes
+  redis: 
+  mysql:
+  rabbitmq:
 
