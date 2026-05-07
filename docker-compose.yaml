@@ -92,9 +92,7 @@ services:
     - cart
     - user
     - shipping
-    - payment
-    ports: 
-    - "80:80"  
+    - payment 
 
 
 networks:
