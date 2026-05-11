@@ -3,7 +3,7 @@ services:
     build:
       context: ./catalogue
       dockerfile: dockerfile
-    image: vikas/catalogue:v1
+    image: vikasvanamala/catalogue:v1
     container_name: catalogue
     depends_on: 
     - mongodb
@@ -11,7 +11,7 @@ services:
   
   mongodb:
     build: ./mongodb
-    image: vikas/mongodb:v1
+    image: vikasvanamala/mongodb:v1
     container_name: mongodb
     volumes:
     - mongodb:/data/db
@@ -33,7 +33,7 @@ services:
 
   mysql:
     build: ./mysql
-    image: vikas/mysql:v1
+    image: vikasvanamala/mysql:v1
     container_name: mysql
     volumes:
     - mysql:/var/lib/mysql
@@ -42,7 +42,7 @@ services:
     build:
       context: ./cart
       dockerfile: dockerfile
-    image: vikas/cart:v1
+    image: vikasvanamala/cart:v1
     container_name: cart
     depends_on: 
     - redis
@@ -52,7 +52,7 @@ services:
     build:
       context: ./user
       dockerfile: dockerfile
-    image: vikas/user:v1
+    image: vikasvanamala/user:v1
     container_name: user
     depends_on: 
     - mongodb
@@ -62,7 +62,7 @@ services:
     build:
       context: ./shipping
       dockerfile: dockerfile
-    image: vikas/shipping:v1
+    image: vikasvanamala/shipping:v1
     container_name: shipping
     depends_on: 
     - mysql
@@ -72,7 +72,7 @@ services:
     build:
       context: ./payment
       dockerfile: dockerfile
-    image: vikas/payment:v1
+    image: vikasvanamala/payment:v1
     container_name: payment
     depends_on:
     - rabbitmq
@@ -83,7 +83,7 @@ services:
     build:
       context: ./frontend
       dockerfile: dockerfile
-    image: vikas/frontend:v1
+    image: vikasvanamala/frontend:v1
     container_name: frontend
     ports: 
     - "80:80"  
