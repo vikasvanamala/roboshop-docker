@@ -16,11 +16,11 @@ LABEL com.project="roboshop" \
       created_by="vikas"  
 ENV CART_ENDPOINT="cart:8080" \
     DB_HOST="mysql"
-USER roboshop
+
 COPY --from=builder --chown=roboshop:roboshop /opt/server/shipping.jar .
 
-
-CMD ["sh", "-c", "sleep 30 && java -jar shipping.jar"]
+USER roboshop
+ENTRYPOINT ["sh", "-c", "sleep 30 && java -jar shipping.jar"]
 #CMD ["sleep", "1000"]
 
 
