@@ -39,9 +39,7 @@ services:
     - mysql:/var/lib/mysql
 
   cart:
-    build:
-      context: ./cart
-      dockerfile: dockerfile
+    build: ./cart
     image: vikasvanamala/cart:v1
     container_name: cart
     depends_on: 
@@ -49,9 +47,7 @@ services:
     - catalogue
 
   user:
-    build:
-      context: ./user
-      dockerfile: dockerfile
+    build: ./user
     image: vikasvanamala/user:v1
     container_name: user
     depends_on: 
@@ -59,9 +55,7 @@ services:
     - redis
 
   shipping:
-    build:
-      context: ./shipping
-      dockerfile: dockerfile
+    build: ./shipping
     image: vikasvanamala/shipping:v1
     container_name: shipping
     depends_on: 
@@ -69,9 +63,7 @@ services:
     - cart
 
   payment:
-    build:
-      context: ./payment
-      dockerfile: dockerfile
+    build: ./payment
     image: vikasvanamala/payment:v1
     container_name: payment
     depends_on:
@@ -80,9 +72,7 @@ services:
     - user
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: dockerfile
+    build: ./frontend
     image: vikasvanamala/frontend:v1
     container_name: frontend
     ports: 
